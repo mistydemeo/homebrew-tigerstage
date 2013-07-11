@@ -21,7 +21,6 @@ class XnuHeaders < Formula
 
   def install
     include.install Dir['bsd/*']
-    puts Dir[include/'*']
     # some makefiles look for this in System, for some unknown reason
     (include/'System').mkpath
     (include/'System/sys').make_symlink include/'sys'
