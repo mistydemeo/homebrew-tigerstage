@@ -44,19 +44,16 @@ class DiskdevCmds < Formula
       inreplace "#{tool}.tproj/Makefile", "-o root -g wheel", ""
     end
 
-    # system paths get hardcoded in fsck_hfs
-    inreplace 'fsck_hfs.tproj/Makefile' do |s|
-      s.change_make_var! 'HFS_INSTALLDIR', 'Filesystems/hfs.fs'
-      s.change_make_var! 'INCINSTALLDIR', 'fsck'
-    end
-
     # vsdbutil tries to install its plist to /System under the install prefix
     inreplace 'vsdbutil.tproj/Makefile', '/System/Library/LaunchDaemons/com.apple.vsdbutil.plist', ''
 
     makepath = Formula.factory('coreosmakefiles').libexec/'Makefiles'
     # One makefile tries to chown a tool to root, which a regular
     # user account of course can't do
-    system "make", "CHOWN=true", "MAKEFILEPATH=#{makepath}",
-      "DSTROOT=#{prefix}"
+    system "make", "CHOWN=true",
+      "MAKEFILEPATH=#{makepath}", "DSTROOT=#{prefix}",
+      # These two paths only occur in fsck_hfs
+      'HFS_INSTALLDIR=/Filesystems/hfs.fs',
+      "INCINSTALLDIR=#{include}/fsck"
   end
 end
