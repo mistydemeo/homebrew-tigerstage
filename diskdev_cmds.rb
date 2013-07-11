@@ -1,7 +1,7 @@
 require 'formula'
 
 class DiskdevCmds < Formula
-  homepage ''
+  homepage 'http://www.opensource.apple.com'
   url 'http://www.opensource.apple.com/tarballs/diskdev_cmds/diskdev_cmds-557.3.tar.gz'
   sha1 '757cd11db00a2b74e80ad794bd64640fae080bbd'
 
@@ -13,7 +13,7 @@ class DiskdevCmds < Formula
   def install
     # The install paths are frequently a mess, so they need some tweaking
     # to fit within our install prefix that doesn't resemble / entirely
-    # 
+    #
     # original tool installs some things to /sbin, some to /usr/sbin
     %w[dev_mkdb edquota fdisk fuser quotaon repquota vsdbutil].each do |tool|
       inreplace "#{tool}.tproj/Makefile" do |s|
