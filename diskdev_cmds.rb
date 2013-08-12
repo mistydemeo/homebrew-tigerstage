@@ -8,6 +8,8 @@ class DiskdevCmds < Formula
   depends_on 'coreosmakefiles' => :build
   depends_on 'disklib-headers' => :build
   depends_on 'libutil-headers' => :build
+  # Tiger doesn't have it, possibly too old elsewhere
+  depends_on 'tconf' => :build
   depends_on 'xnu-headers' => :build
 
   def install
